@@ -27,7 +27,8 @@
   },
   "homepage": "https://github.com/0x13a/bitcoin-trading-dca#readme",
   "dependencies": {
+    "ccxt": "^1.10.778",
     "dotenv": "^4.0.0",
-    "kraken-api": "^1.0.0"
+    "moment": "^2.20.1"
   }
 }
