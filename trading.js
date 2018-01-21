@@ -29,7 +29,7 @@ const timestamp = () => new Date().toISOString();
 
 //console.log (bitstamp.id, await bitstamp.loadMarkets ());
 
-const investmentAmount = process.env.INVESTMENT_AMOUNT || 5;
+const investmentAmount = process.env.INVESTMENT_AMOUNT || 6;
 console.log('investmentAmount', investmentAmount);
 const cryptoCurrency = (process.env.CRYPTOCURRENCY || 'BTC').toUpperCase();;
 const fiatCurrency = (process.env.FIATCURRENCY || 'EUR').toUpperCase();
@@ -95,12 +95,14 @@ const main = async () => {
       if (resultDates.firstDayOfMonth){
         let balance = await bitstamp.privatePostBalance();
         console.log('balance',balance);
-        let params = {
-          amount:balance.btc_available,
-          address:walletAddress
-        };
-        let withdrawResponse = await bitstamp.v1PostBitcoinWithdrawal(params);
-        console.log('time to withdraw cryptos',withdrawResponse);
+        if (balance.btc_available > 0){
+          let params = {
+            amount:balance.btc_available,
+            address:walletAddress
+          };
+          let withdrawResponse = await bitstamp.v1PostBitcoinWithdrawal(params);
+          console.log('time to withdraw cryptos',withdrawResponse);
+        }   
       }
     }
     if (!alreadyBoughtToday) {
